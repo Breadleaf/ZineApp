@@ -5,6 +5,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    depends_on:
+      - redis
+    #   - minio
+    #   - oauth
 
   frontend:
     build:
@@ -15,3 +19,14 @@ services:
       - "443:443"
     depends_on:
       - backend
+
+  redis:
+    image: redis:7.4.2-alpine3.21
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+  # minio:
+  #   image:
