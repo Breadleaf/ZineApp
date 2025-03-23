@@ -5,8 +5,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     #   - minio
     #   - oauth
 
@@ -24,9 +27,19 @@ services:
     image: redis:7.4.2-alpine3.21
     ports:
       - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
     volumes:
       - ./redis.conf:/usr/local/etc/redis/redis.conf
-    command: redis-server /usr/local/etc/redis/redis.conf
+    command:
+      - redis-server
+      - "--requirepass"
+      - "${REDIS_PASSWORD}"
+    healthcheck: # make redis pass 3 healthchecks
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
   # minio:
   #   image:

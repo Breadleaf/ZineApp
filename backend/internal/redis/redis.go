@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 	"strings"
 )
 
@@ -18,6 +19,22 @@ func NewRedis(socket string) *Redis {
 	if err != nil {
 		panic(err)
 	}
+
+	redisPassword := os.Getenv("REDIS_PASSWORD")
+
+	fmt.Fprintf(
+		conn,
+		"*2\r\n$4\r\nAUTH\r\n$%d\r\n%s\r\n",
+		len(redisPassword),
+		redisPassword,
+	)
+
+	reader := bufio.NewReader(conn)
+	line, _ := reader.ReadString('\n')
+	if !strings.HasPrefix(line, "+OK") {
+		panic("redis auth failed: " + line)
+	}
+
 	return &Redis{Connection: conn}
 }
 
