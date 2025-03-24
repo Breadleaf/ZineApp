@@ -1,7 +1,16 @@
 services:
+  # TODO: rename backend to something like datapipe or something
   backend:
     build:
       context: ../backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      # minio
+
+  authentication:
+    build:
+      context: ../authentication
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
@@ -11,7 +20,6 @@ services:
       redis:
         condition: service_healthy
         restart: true
-      # minio
       # oauth
 
   frontend:
@@ -23,6 +31,7 @@ services:
       - "443:443"
     depends_on:
       - backend
+      - authentication
 
   redis:
     image: redis:7.4.2-alpine3.21
