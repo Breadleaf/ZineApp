@@ -10,6 +10,7 @@ services:
     depends_on:
       redis:
         condition: service_healthy
+        restart: true
     #   - minio
     #   - oauth
 
@@ -29,8 +30,6 @@ services:
       - "6379:6379"
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-    volumes:
-      - ./redis.conf:/usr/local/etc/redis/redis.conf
     command:
       - redis-server
       - "--requirepass"
@@ -40,6 +39,3 @@ services:
       interval: 5s
       timeout: 5s
       retries: 3
-
-  # minio:
-  #   image:
