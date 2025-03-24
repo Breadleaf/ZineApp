@@ -2,6 +2,7 @@ PROJECT_ROOT = $(shell git rev-parse --show-toplevel)
 DOCKER_COMPOSE = docker compose -f $(PROJECT_ROOT)/deploy/docker-compose.yaml
 BACKEND_DIR = $(PROJECT_ROOT)/backend
 FRONTEND_DIR = $(PROJECT_ROOT)/frontend
+AUTHENTICATION_DIR = $(PROJECT_ROOT)/authentication
 
 .PHONY: help up down clean test format
 
@@ -30,3 +31,4 @@ test:
 format:
 	cd $(BACKEND_DIR) && go fmt
 	cd $(FRONTEND_DIR) && npm run format
+	cd $(AUTHENTICATION_DIR) && go fmt
