@@ -11,8 +11,8 @@ services:
       redis:
         condition: service_healthy
         restart: true
-    #   - minio
-    #   - oauth
+      # minio
+      # oauth
 
   frontend:
     build:

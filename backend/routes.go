@@ -20,11 +20,11 @@ func setupRoutes() {
 
 		person1 := Person{
 			Name: "John",
-			Age: 21,
+			Age:  21,
 		}
 		person2 := Person{
 			Name: "Jane",
-			Age: 22,
+			Age:  22,
 		}
 		payload := Payload{
 			People: make([]Person, 0),

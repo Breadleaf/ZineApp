@@ -11,7 +11,7 @@ const PORT string = ":8080"
 
 type Person struct {
 	Name string `json:"name"`
-	Age int `json:"age"`
+	Age  int    `json:"age"`
 }
 
 type Payload struct {

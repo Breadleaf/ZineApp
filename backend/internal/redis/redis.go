@@ -83,8 +83,6 @@ func (r *Redis) parseReturn() (string, error) {
 	default:  // not yet implemented reply
 		return "", fmt.Errorf("unsupported reply: %s", header)
 	}
-
-
 }
 
 func (r *Redis) Set(key, value string) (string, error) {

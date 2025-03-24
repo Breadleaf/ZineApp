@@ -1,6 +1,4 @@
-# Zine Stack
-
-Tech Stack used for my personal website as well as my upcoming app Zine!
+# Zine App
 
 More documentation coming soon!
 
