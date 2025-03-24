@@ -1,8 +1,6 @@
 package main
 
 import (
-	"backend/internal/redis"
-	"fmt"
 	"log"
 	"net/http"
 )
@@ -19,21 +17,6 @@ type Payload struct {
 }
 
 func main() {
-	redis := redis.NewRedis("redis:6379")
-	defer redis.Close()
-
-	if val, err := redis.Set("name", "name@gmail.com"); err != nil {
-		fmt.Print(err)
-	} else {
-		fmt.Println("SET reply:", val)
-	}
-
-	if val, err := redis.Get("name"); err != nil {
-		fmt.Print(err)
-	} else {
-		fmt.Println("GET reply:", val)
-	}
-
 	// register all http.HandleFunc to the server
 	setupRoutes()
 
